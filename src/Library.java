@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 public class Library {
+    ArrayList<Buku> dataBuku = new ArrayList<Buku>();
+    Buku buku = new Buku();
     static Staff staffAktif = new Staff("Agus", "12345", "123");
 
     public static void findBukuById(int id) {
@@ -10,7 +13,7 @@ public class Library {
     }
 
     public static void addNewBuku(Buku buku) {
-        // ....
+        
     }
 
     public static void updateBuku(Buku buku) {

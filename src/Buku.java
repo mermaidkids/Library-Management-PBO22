@@ -7,6 +7,9 @@ public class Buku {
     Penulis penulis;
     Penerbit penerbit;
 
+    public Buku(){
+        
+    }
     // Cnstructor dengan parameter
     public Buku(int idBuku, String judulBuku,
             int jmlHalaman, String tanggalTerbit,
