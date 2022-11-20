@@ -1,8 +1,10 @@
-public class Staff {
+public class Staff extends Akun {
     // Attribut class staff
     String namaStaff;
-    String nik;
-    String password;
+
+    public Staff() {
+
+    }
 
     public Staff(String namaStaff, String nik, String password) {
         this.namaStaff = namaStaff;

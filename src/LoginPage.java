@@ -24,13 +24,13 @@ public class LoginPage {
         boolean statusLogin = Auth.login(nik, password);
 
         if (statusLogin == true) {
-            System.out.println("Berhasil Login");
+            new HomePage();
         } else {
-            logingagal();
+            loginGagal();
         }
     }
 
-    void logingagal() {
+    void loginGagal() {
         System.out.println("--------------------");
         System.out.println("---- LOGIN GAGAL ---");
         System.out.println("---- NIK/PASSWORD SALAH ---");
