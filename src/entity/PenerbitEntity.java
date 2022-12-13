@@ -1,17 +1,19 @@
-public class Penerbit extends Identitas {
+package entity;
+
+public class PenerbitEntity extends IdentitasEntity {
     // Attribut Class Penerbit
     String alamatPenerbit;
 
-    public Penerbit() {
+    public PenerbitEntity() {
 
     }
 
-    public Penerbit(String namaPenerbit) {
+    public PenerbitEntity(String namaPenerbit) {
         this.nama = namaPenerbit;
         this.alamatPenerbit = "-";
     }
 
-    public Penerbit(String namaPenerbit, String alamatPenerbit) {
+    public PenerbitEntity(String namaPenerbit, String alamatPenerbit) {
         this.nama = namaPenerbit;
         this.alamatPenerbit = alamatPenerbit;
     }

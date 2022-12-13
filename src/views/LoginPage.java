@@ -1,7 +1,12 @@
+package views;
+
 import java.util.Scanner;
 
-public class LoginPage {
+import controllers.AuthController;
+
+public class LoginPage extends AuthController {
     Scanner input = new Scanner(System.in);
+    AuthController auth = new AuthController();
 
     public LoginPage() {
         while (true) {
@@ -21,7 +26,7 @@ public class LoginPage {
         password = input.nextLine();
         System.out.println("--------------------");
 
-        boolean statusLogin = Auth.login(nik, password);
+        boolean statusLogin = auth.login(nik, password);
 
         if (statusLogin == true) {
             new HomePage();

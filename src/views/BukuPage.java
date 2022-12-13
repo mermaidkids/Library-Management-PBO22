@@ -1,11 +1,18 @@
+package views;
+
 import java.util.Scanner;
+
+import entity.BukuEntity;
+import entity.PenerbitEntity;
+import entity.PenulisEntity;
+import models.Library;
 
 public class BukuPage {
     private Scanner input = new Scanner(System.in);
 
-    private void lihatBuku(Buku buku) {
-        Penulis penulis = buku.penulis;
-        Penerbit penerbit = buku.penerbit;
+    private void lihatBuku(BukuEntity buku) {
+        PenulisEntity penulis = buku.penulis;
+        PenerbitEntity penerbit = buku.penerbit;
 
         System.out.println("---------------------------------------");
         System.out.println("ID Buku        : " + buku.idKoleksi);
@@ -28,7 +35,7 @@ public class BukuPage {
 
     public void lihatBuku() {
         System.out.println("============== LIHAT BUKU =============");
-        for (Buku buku : Library.bukuList) {
+        for (BukuEntity buku : Library.bukuList) {
             lihatBuku(buku);
         }
         System.out.println("=======================================");
@@ -42,8 +49,8 @@ public class BukuPage {
         String judulBuku;
         int jmlHalaman;
         String tanggalTerbit;
-        Penulis penulis = null;
-        Penerbit penerbit = null;
+        PenulisEntity penulis = null;
+        PenerbitEntity penerbit = null;
 
         System.out.println("============== TAMBAH BUKU ============");
         System.out.print("Judul Buku        : ");
@@ -64,7 +71,7 @@ public class BukuPage {
             String namaPenulis;
             System.out.print("  Nama Penulis    : ");
             namaPenulis = input.nextLine();
-            penulis = new Penulis(namaPenulis);
+            penulis = new PenulisEntity(namaPenulis);
         }
 
         System.out.print("Masukan Penerbit (y/n) ? ");
@@ -79,10 +86,10 @@ public class BukuPage {
             System.out.print("  Alamat Penerbit : ");
             alamatPenerbit = input.nextLine();
 
-            penerbit = new Penerbit(namaPenerbit, alamatPenerbit);
+            penerbit = new PenerbitEntity(namaPenerbit, alamatPenerbit);
         }
 
-        Buku bukuBaru = new Buku(judulBuku, jmlHalaman, tanggalTerbit, penulis, penerbit, true);
+        BukuEntity bukuBaru = new BukuEntity(judulBuku, jmlHalaman, tanggalTerbit, penulis, penerbit, true);
 
         Library.tambahBuku(bukuBaru);
 
@@ -95,7 +102,7 @@ public class BukuPage {
         System.out.println();
     }
 
-    public void editBuku(Buku buku, int pilihEdit) {
+    public void editBuku(BukuEntity buku, int pilihEdit) {
         switch (pilihEdit) {
             case 1:
                 String judulBukuBaru;
@@ -122,7 +129,7 @@ public class BukuPage {
         System.out.println();
     }
 
-    public void editBuku(Buku buku) {
+    public void editBuku(BukuEntity buku) {
         System.out.println("---------------------------------------");
         System.out.println("Ingin mengubah apa ? ");
 
@@ -153,7 +160,7 @@ public class BukuPage {
         idKoleksi = input.nextInt();
         input.nextLine();
 
-        Buku buku = Library.findBukuById(idKoleksi);
+        BukuEntity buku = Library.findBukuById(idKoleksi);
 
         if (buku != null) {
             editBuku(buku);
@@ -164,7 +171,7 @@ public class BukuPage {
         System.out.println("=======================================");
     }
 
-    private void hapusBuku(Buku buku) {
+    private void hapusBuku(BukuEntity buku) {
         System.out.println("=============== KONFIRMASI ============");
 
         lihatBuku(buku);
@@ -187,7 +194,7 @@ public class BukuPage {
         idKoleksi = input.nextInt();
         input.nextLine();
 
-        Buku buku = Library.findBukuById(idKoleksi);
+        BukuEntity buku = Library.findBukuById(idKoleksi);
 
         if (buku != null) {
             hapusBuku(buku);

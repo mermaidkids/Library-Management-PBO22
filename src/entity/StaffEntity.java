@@ -1,12 +1,10 @@
-public class Staff extends Akun {
+package entity;
+
+public class StaffEntity extends AkunEntity {
     // Attribut class staff
     String namaStaff;
 
-    public Staff() {
-
-    }
-
-    public Staff(String namaStaff, String nik, String password) {
+    public StaffEntity(String namaStaff, String nik, String password) {
         this.namaStaff = namaStaff;
         this.nik = nik;
         this.password = password;

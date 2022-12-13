@@ -1,17 +1,19 @@
-public class Penulis extends Identitas {
+package entity;
+
+public class PenulisEntity extends IdentitasEntity {
     // Attribut Class Penulis
     String emailPenulis;
 
-    public Penulis() {
+    public PenulisEntity() {
 
     }
 
-    public Penulis(String namaPenulis) {
+    public PenulisEntity(String namaPenulis) {
         this.nama = namaPenulis;
         this.emailPenulis = "-";
     }
 
-    public Penulis(String namaPenulis, String emailPenulis) {
+    public PenulisEntity(String namaPenulis, String emailPenulis) {
         this.nama = namaPenulis;
         this.emailPenulis = emailPenulis;
     }

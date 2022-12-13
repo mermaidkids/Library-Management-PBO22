@@ -1,32 +1,33 @@
-public class Buku extends Koleksi {
+package entity;
+
+import models.Library;
+
+public class BukuEntity extends KoleksiEntity {
     // Attribut Class buku
+    public String judulBuku;
+    public int jmlHalaman;
+    public String tanggalTerbit;
+    public PenulisEntity penulis;
+    public PenerbitEntity penerbit;
 
-    String judulBuku;
-    int jmlHalaman;
-    String tanggalTerbit;
-    Penulis penulis;
-    Penerbit penerbit;
-
-    public Buku() {
+    public BukuEntity() {
 
     }
 
     // Cnstructor dengan parameter
-    public Buku(String judulBuku, int jmlHalaman, String tanggalTerbit, boolean status) {
+    public BukuEntity(String judulBuku, int jmlHalaman, String tanggalTerbit, boolean status) {
 
         idBukuBaru();
         this.judulBuku = judulBuku;
         this.jmlHalaman = jmlHalaman;
         this.tanggalTerbit = tanggalTerbit;
-        this.penulis = null;
-        this.penerbit = null;
         this.status = status;
 
     }
 
-    public Buku(String judulBuku,
+    public BukuEntity(String judulBuku,
             int jmlHalaman, String tanggalTerbit,
-            Penulis penulis, Penerbit penerbit, boolean status) {
+            PenulisEntity penulis, PenerbitEntity penerbit, boolean status) {
         idBukuBaru();
         this.judulBuku = judulBuku;
         this.jmlHalaman = jmlHalaman;
@@ -37,6 +38,7 @@ public class Buku extends Koleksi {
     }
 
     private void idBukuBaru() {
+
         if (Library.bukuList.size() == 0) {
             // Jika ArrayList buku MASIH Kosong,
             // maka atur idBuku menjadi 1
@@ -48,7 +50,7 @@ public class Buku extends Koleksi {
             int indexTerakhirDalamList = Library.bukuList.size() - 1;
 
             // Ambil Object Buku dalam List berdasarkan indexnya.
-            Buku bukuTerakhirDalamList = Library.bukuList.get(indexTerakhirDalamList);
+            BukuEntity bukuTerakhirDalamList = Library.bukuList.get(indexTerakhirDalamList);
 
             // Ambil idBuku pada Object Buku terakhir
             int idBukuTerakhir = bukuTerakhirDalamList.idKoleksi;
