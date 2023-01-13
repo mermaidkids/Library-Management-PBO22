@@ -22,6 +22,10 @@ public class HomePage {
                     2. Tambah Buku
                     3. Edit Buku
                     4. Hapus Buku
+                    5. Cari Buku (dengan nama)
+                    6. Cari Buku (dengan Id)
+                    7. Filter buku (dengan genre)
+                    8. Cari staff (dengan nik)
                     0. Keluar
                     """);
             System.out.print("Pilih Menu: ");
@@ -48,6 +52,22 @@ public class HomePage {
 
             case 4:
                 bukuPage.hapusBuku();
+                break;
+
+            case 5:
+                bukuPage.cariBukuByTitle();
+                break;
+
+            case 6:
+                bukuPage.cariBukuById();
+                break;
+
+            case 7:
+                bukuPage.filterBuku();
+                break;
+
+            case 8:
+                bukuPage.cariStaff();
                 break;
 
             default:

@@ -4,6 +4,14 @@ public class PenerbitEntity extends IdentitasEntity {
     // Attribut Class Penerbit
     String alamatPenerbit;
 
+    public String getAlamatPenerbit() {
+        return alamatPenerbit;
+    }
+
+    public void setAlamatPenerbit(String alamatPenerbit) {
+        this.alamatPenerbit = alamatPenerbit;
+    }
+
     public PenerbitEntity() {
 
     }

@@ -2,7 +2,7 @@ package entity;
 
 public class PenulisEntity extends IdentitasEntity {
     // Attribut Class Penulis
-    String emailPenulis;
+    private String emailPenulis;
 
     public PenulisEntity() {
 
@@ -23,5 +23,13 @@ public class PenulisEntity extends IdentitasEntity {
         System.out.println("Nama Penulis    :" + nama);
         System.out.println("Email Penulis :" + emailPenulis);
 
+    }
+
+    public String getEmailPenulis() {
+        return emailPenulis;
+    }
+
+    public void setEmailPenulis(String emailPenulis) {
+        this.emailPenulis = emailPenulis;
     }
 }

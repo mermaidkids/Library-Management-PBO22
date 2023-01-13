@@ -1,37 +1,46 @@
 package controllers;
 
-import entity.AkunEntity;
 import entity.StaffEntity;
-import models.Library;
+// import models.Library;
+import models.Staff;
 
-public class AuthController extends AkunEntity {
-    StaffEntity staffLogged = null;
+public class AuthController {
 
     public void initialStaff() {
 
         StaffEntity staff1 = new StaffEntity("Agus", "12345", "123");
         StaffEntity staff2 = new StaffEntity("Budi", "54321", "123");
 
-        Library.staffList.add(staff1);
-        Library.staffList.add(staff2);
+        Staff.staffList.add(staff1);
+        Staff.staffList.add(staff2);
 
     }
 
+    public boolean regisStaff(String nama, String nik, String password) {
+        if (Staff.findStaff(nik) == null) {
+            StaffEntity staffbaru = new StaffEntity(nama, nik, password);
+            Staff.regisStaff(staffbaru);
+            return true;
+        }
+        return true;
+    }
+
     public boolean login(String nik, String password) {
-        StaffEntity staff = Library.findStaff(nik);
+        StaffEntity staff = Staff.findStaff(nik);
 
         if (staff != null) {
             if (staff.getPassword().equals(password)) {
-                staffLogged = staff;
+                Staff.setStaffLogged(staff);
                 return true;
             } else {
-                staffLogged = null;
+                Staff.setStaffLogged(null);
             }
         }
         return false;
     }
 
     public void logout() {
-        staffLogged = null;
+        Staff.setStaffLogged(null);
     }
+
 }

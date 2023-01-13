@@ -1,14 +1,20 @@
 import controllers.AuthController;
 import models.Library;
 import views.LoginPage;
+import views.LoginFrame;
+// import views.home.DashboardFrame;
 
-public class App extends AuthController {
+public class App {
     public static void main(String[] args) {
-        AuthController authc = new AuthController();
-        authc.initialStaff();
+
+        AuthController auth = new AuthController();
+        auth.initialStaff();
         Library.initialBuku();
 
-        new LoginPage();
+        // new DashboardFrame().setVisible(true);
+
+        // new LoginPage();
+        new LoginFrame().setVisible(true);
 
     }
 }

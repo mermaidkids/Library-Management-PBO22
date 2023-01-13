@@ -5,30 +5,33 @@ import java.util.Scanner;
 import entity.BukuEntity;
 import entity.PenerbitEntity;
 import entity.PenulisEntity;
+import entity.StaffEntity;
 import models.Library;
+import models.Staff;
 
-public class BukuPage {
+public class BukuPage extends Library {
     private Scanner input = new Scanner(System.in);
 
     private void lihatBuku(BukuEntity buku) {
-        PenulisEntity penulis = buku.penulis;
-        PenerbitEntity penerbit = buku.penerbit;
+        PenulisEntity penulis = buku.getPenulis();
+        PenerbitEntity penerbit = buku.getPenerbit();
 
         System.out.println("---------------------------------------");
-        System.out.println("ID Buku        : " + buku.idKoleksi);
-        System.out.println("Judul Buku     : " + buku.judulBuku);
-        System.out.println("Jumlah Halaman : " + buku.jmlHalaman);
+        System.out.println("ID Buku        : " + buku.getIdKoleksi());
+        System.out.println("Judul Buku     : " + buku.getJudulBuku());
+        System.out.println("Jumlah Halaman : " + buku.getJmlHalaman());
+        System.out.println("Genre Buku     : " + buku.getGenreBuku());
         if (penulis != null) {
-            System.out.println("Nama Penulis   : " + penulis.nama);
+            System.out.println("Nama Penulis   : " + penulis.getNama());
         } else {
             System.out.println("Nama Penulis   : Tidak diketahui");
         }
         if (penerbit != null) {
-            System.out.println("Penerbit       : " + penerbit.nama);
+            System.out.println("Penerbit       : " + penerbit.getNama());
         } else {
             System.out.println("Penerbit       : Tidak diketahui");
         }
-        System.out.println("Tanggal Terbit : " + buku.tanggalTerbit);
+        System.out.println("Tanggal Terbit : " + buku.getTanggalTerbit());
         System.out.println("---------------------------------------");
 
     }
@@ -48,7 +51,9 @@ public class BukuPage {
     public void tambahBuku() {
         String judulBuku;
         int jmlHalaman;
+        String genreBuku;
         String tanggalTerbit;
+
         PenulisEntity penulis = null;
         PenerbitEntity penerbit = null;
 
@@ -61,6 +66,9 @@ public class BukuPage {
 
         input.nextLine();
 
+        System.out.print("Genre Buku      :");
+        genreBuku = input.nextLine();
+
         System.out.print("Tanggal Terbit    : ");
         tanggalTerbit = input.nextLine();
 
@@ -69,9 +77,12 @@ public class BukuPage {
 
         if (masukanPenulis == 'y') {
             String namaPenulis;
+            String emailPenulis;
             System.out.print("  Nama Penulis    : ");
             namaPenulis = input.nextLine();
-            penulis = new PenulisEntity(namaPenulis);
+            System.out.print(" Email Penulis  : ");
+            emailPenulis = input.nextLine();
+            penulis = new PenulisEntity(namaPenulis, emailPenulis);
         }
 
         System.out.print("Masukan Penerbit (y/n) ? ");
@@ -89,7 +100,7 @@ public class BukuPage {
             penerbit = new PenerbitEntity(namaPenerbit, alamatPenerbit);
         }
 
-        BukuEntity bukuBaru = new BukuEntity(judulBuku, jmlHalaman, tanggalTerbit, penulis, penerbit, true);
+        BukuEntity bukuBaru = new BukuEntity(judulBuku, jmlHalaman, genreBuku, tanggalTerbit, penulis, penerbit, true);
 
         Library.tambahBuku(bukuBaru);
 
@@ -106,19 +117,39 @@ public class BukuPage {
         switch (pilihEdit) {
             case 1:
                 String judulBukuBaru;
-                System.out.println("Judul Buku          : " + buku.judulBuku);
+                System.out.println("Judul Buku          : " + buku.getJudulBuku());
                 System.out.print("Masukan Judul Baru  : ");
                 judulBukuBaru = input.nextLine();
                 buku.setJudulBuku(judulBukuBaru);
                 break;
+
             case 2:
                 int jmlHalaman;
-                System.out.println("Jumlah Halaman              : " + buku.jmlHalaman);
+                System.out.println("Jumlah Halaman              : " + buku.getJmlHalaman());
                 System.out.print("Masukan Jumlah Halaman Baru : ");
                 jmlHalaman = input.nextInt();
                 input.nextLine();
                 buku.setJmlHalaman(jmlHalaman);
                 break;
+
+            case 3:
+                String genreBuku;
+                System.out.println("Genre Buku              : " + buku.getGenreBuku());
+                System.out.print("Masukan Genre Baru : ");
+                genreBuku = input.nextLine();
+
+                buku.setGenreBuku(genreBuku);
+                break;
+
+            case 4:
+                String tglTerbit;
+                System.out.println("Tanggal Terbit            : " + buku.getTanggalTerbit());
+                System.out.print("Masukan Tanggal Terbit Baru : ");
+                tglTerbit = input.nextLine();
+
+                buku.setTanggalTerbit(tglTerbit);
+                break;
+
         }
 
         Library.updateBuku(buku);
@@ -137,10 +168,8 @@ public class BukuPage {
         System.out.print("""
                 1. Judul Buku
                 2. Jumlah Halaman
-                3. Tanggal Terbit
-                4. Penulis
-                5. Penerbit
-                6. Status
+                3. Genre Buku
+                4. Tanggal Terbit
                 0. Selesai
                 Pilih: """);
         pilihEdit = input.nextInt();
@@ -176,7 +205,7 @@ public class BukuPage {
 
         lihatBuku(buku);
 
-        System.out.println("Ingin Menghapus Buku ini ? (y/n) ");
+        System.out.print("Ingin Menghapus Buku ini ? (y/n) ");
         char konf = input.nextLine().charAt(0);
 
         if (konf == 'y') {
@@ -204,4 +233,56 @@ public class BukuPage {
 
         System.out.println("=======================================");
     }
+
+    public void cariBukuByTitle() {
+
+        System.out.print("Masukkan Judul Buku : ");
+        String judulBuku = input.nextLine();
+        BukuEntity buku = Library.findBukuByTitle(judulBuku);
+        if (buku != null) {
+            lihatBuku(buku);
+        } else {
+            System.out.println("Data Buku Tidak Ditemukan !");
+        }
+    }
+
+    public void cariBukuById() {
+
+        System.out.print("Masukkan Id Buku : ");
+        int idBuku = input.nextInt();
+        input.nextLine();
+        BukuEntity buku = Library.findBukuById(idBuku);
+        if (buku != null) {
+            lihatBuku(buku);
+        } else {
+            System.out.println("Data Buku Tidak Ditemukan !");
+        }
+    }
+
+    public void filterBuku() {
+
+        System.out.print("Masukkan genre Buku : ");
+        String genre = input.nextLine();
+
+        BukuEntity buku = Library.filterBukuByGenre(genre);
+        if (buku != null) {
+            lihatBuku(buku);
+        } else {
+            System.out.println("Data Buku Tidak Ditemukan !");
+        }
+
+    }
+
+    public void cariStaff() {
+
+        System.out.print("Masukkan nik Staff : ");
+        String nik = input.nextLine();
+        StaffEntity staff = Staff.findStaff(nik);
+        if (staff != null) {
+            System.out.println(staff.getNamaStaff());
+        } else {
+            System.out.println("Data Buku Tidak Ditemukan !");
+        }
+    }
+
 }
