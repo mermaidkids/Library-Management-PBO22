@@ -20,7 +20,7 @@ public class LoginFrame extends MainFrame {
     private JPasswordField passwordField;
 
     private JButton masukBtn, daftarBtn;
-    // private DashboardFrame dashboard = new DashboardFrame();
+
     private AuthController _authC = new AuthController();
 
     public LoginFrame() {
@@ -29,7 +29,7 @@ public class LoginFrame extends MainFrame {
 
     @Override
     protected void component() {
-        ImageIcon imgLoad = loadImage("src/assets/images.png", 195, 195);
+        ImageIcon imgLoad = loadImage("src/assets/elibrary.png", 195, 195);
         iconLabel = new JLabel(imgLoad);
         boundedAdd(iconLabel, 103, 30, 195, 195);
 
@@ -88,6 +88,11 @@ public class LoginFrame extends MainFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
 
+        });
+
+        daftarBtn.addActionListener((event) -> {
+            new RegisterFrame().setVisible(true);
+            dispose();
         });
     }
 }

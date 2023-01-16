@@ -1,4 +1,4 @@
-package views;
+package views.cli;
 
 import java.util.Scanner;
 
@@ -12,6 +12,7 @@ public class HomePage {
     }
 
     private void initialPage() {
+
         System.out.println("=======================================");
         System.out.println("--------------- LIBRARY ---------------");
         System.out.println("=======================================");

@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 public class DashboardFrame extends MainFrame {
 
     private JLabel iconLabel;
-    private JLabel titleLabel; // subTitleLabel;
+    private JLabel titleLabel, subTitleLabel;
     private JButton lihatBtn, tambahBtn, editBtn, hapusBtn;
     private JButton refreshBtn;
 
@@ -28,17 +28,17 @@ public class DashboardFrame extends MainFrame {
 
     private DashboardController _dashboardC = new DashboardController();
     // private AuthController auth = new AuthController();
-    // private StaffEntity staff;
+    private StaffEntity staff;
 
     public DashboardFrame() {
         super("Dashboard", 800, 600);
 
-        Staff.getStaffLogged();
+        staff = Staff.getStaffLogged();
     }
 
     @Override
     protected void component() {
-        ImageIcon imgLoad = loadImage("src/assets/images.png", 55, 55);
+        ImageIcon imgLoad = loadImage("src/assets/elibrary.png", 55, 55);
         iconLabel = new JLabel(imgLoad);
         boundedAdd(iconLabel, 34, 40, 55, 55);
 
@@ -47,11 +47,10 @@ public class DashboardFrame extends MainFrame {
         setFontStyle(titleLabel, Font.BOLD);
         boundedAdd(titleLabel, 102, 53, 73, 20);
 
-        // subTitleLabel = new JLabel(staff.getNamaStaff());
-        // // subTitleLabel = new JLabel("");
-        // setFontSize(subTitleLabel, 20);
-        // setFontStyle(subTitleLabel, Font.BOLD);
-        // boundedAdd(subTitleLabel, 102, 68, 200, 27);
+        subTitleLabel = new JLabel(staff.getNamaStaff());
+        setFontSize(subTitleLabel, 20);
+        setFontStyle(subTitleLabel, Font.BOLD);
+        boundedAdd(subTitleLabel, 102, 68, 200, 27);
 
         refreshBtn = new JButton("Refresh");
         refreshBtn.setForeground(color("#00FF88"));
@@ -108,6 +107,19 @@ public class DashboardFrame extends MainFrame {
         refreshBtn.addActionListener((e) -> {
             bukuTable.setModel(createTableModel());
         });
+
+        tambahBtn.addActionListener((event -> {
+            new TambahBukuFrame().setVisible(true);
+        }));
+
+        hapusBtn.addActionListener((event -> {
+            new HapusFrame().setVisible(true);
+        }));
+
+        editBtn.addActionListener((event -> {
+            new EditFrame().setVisible(true);
+        }));
+
     }
 
     private TableModel createTableModel() {

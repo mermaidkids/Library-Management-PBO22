@@ -1,4 +1,4 @@
-package views;
+package views.cli;
 
 import java.util.Scanner;
 
@@ -281,7 +281,7 @@ public class BukuPage extends Library {
         if (staff != null) {
             System.out.println(staff.getNamaStaff());
         } else {
-            System.out.println("Data Buku Tidak Ditemukan !");
+            System.out.println("Data Staff Tidak Ditemukan !");
         }
     }
 
