@@ -116,6 +116,14 @@ public class BukuEntity extends KoleksiEntity {
         return genreBuku;
     }
 
+    public String getNamaPenulis() {
+        return penulis.getNama();
+    }
+
+    public String getNamaPenerbit() {
+        return penerbit.getNama();
+    }
+
     public void setGenreBuku(String genreBuku) {
         this.genreBuku = genreBuku;
     }

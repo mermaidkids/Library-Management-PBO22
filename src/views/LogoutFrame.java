@@ -3,6 +3,8 @@ package views;
 import java.awt.Font;
 import javax.swing.*;
 
+import views.home.DashboardFrame;
+
 public class LogoutFrame extends MainFrame {
     private JLabel titleLabel;
     private JLabel captionLabel;
@@ -27,17 +29,25 @@ public class LogoutFrame extends MainFrame {
         yakinBtn = new JButton("YAKIN");
         yakinBtn.setBackground(color("#FF4040"));
         yakinBtn.setForeground(color("#FFFFFF"));
-        boundedAdd(yakinBtn, 158, 467, 85, 32);
+        boundedAdd(yakinBtn, 314, 151, 70, 30);
 
         batalBtn = new JButton("BATAL");
         batalBtn.setBackground(color("#5BFF40"));
         batalBtn.setForeground(color("#FFFFFF"));
-        boundedAdd(batalBtn, 158, 467, 85, 32);
+        boundedAdd(batalBtn, 225, 151, 70, 30);
 
     }
 
     @Override
     protected void event() {
+        yakinBtn.addActionListener((event -> {
+            new LoginFrame().setVisible(true);
+            dispose();
+        }));
+        batalBtn.addActionListener((event -> {
+            new DashboardFrame().setVisible(true);
+            dispose();
 
+        }));
     }
 }

@@ -27,6 +27,7 @@ public abstract class MainFrame extends JFrame {
         setBackground(backgroundColor);
         setLayout(null);
         setLocation(500, 250);
+        setResizable(false);
 
     }
 

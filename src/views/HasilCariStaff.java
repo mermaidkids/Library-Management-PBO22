@@ -3,14 +3,20 @@ package views;
 import java.awt.Font;
 import javax.swing.*;
 
+import entity.StaffEntity;
+import models.Staff;
+
 public class HasilCariStaff extends MainFrame {
     private JLabel titleLabel;
     private JLabel namaLabel;
     private JLabel subTitleLabel;
     private JButton tutupBtn;
 
-    public HasilCariStaff() {
+    StaffEntity staff;
+
+    public HasilCariStaff(String nik) {
         super("STAFF RESULT", 400, 300);
+        staff = Staff.getStaffLogged();
     }
 
     @Override
@@ -28,7 +34,7 @@ public class HasilCariStaff extends MainFrame {
         subTitleLabel = new JLabel(staff.getNamaStaff());
         setFontSize(subTitleLabel, 20);
         setFontStyle(subTitleLabel, Font.BOLD);
-        boundedAdd(subTitleLabel, 102, 68, 200, 27);
+        boundedAdd(subTitleLabel, 86, 159, 227, 29);
 
         tutupBtn = new JButton("Tutup");
         tutupBtn.setBackground(color("#FF4040"));
@@ -38,5 +44,9 @@ public class HasilCariStaff extends MainFrame {
 
     @Override
     protected void event() {
+        tutupBtn.addActionListener((event -> {
+            dispose();
+        }));
     }
+
 }

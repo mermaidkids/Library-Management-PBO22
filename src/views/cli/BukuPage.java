@@ -36,6 +36,31 @@ public class BukuPage extends Library {
 
     }
 
+    private void lihatBuku(int index) {
+        BukuEntity buku = new BukuEntity();
+        PenulisEntity penulis = buku.getPenulis();
+        PenerbitEntity penerbit = buku.getPenerbit();
+
+        System.out.println("---------------------------------------");
+        System.out.println("ID Buku        : " + buku.getIdKoleksi());
+        System.out.println("Judul Buku     : " + buku.getJudulBuku());
+        System.out.println("Jumlah Halaman : " + buku.getJmlHalaman());
+        System.out.println("Genre Buku     : " + buku.getGenreBuku());
+        if (penulis != null) {
+            System.out.println("Nama Penulis   : " + penulis.getNama());
+        } else {
+            System.out.println("Nama Penulis   : Tidak diketahui");
+        }
+        if (penerbit != null) {
+            System.out.println("Penerbit       : " + penerbit.getNama());
+        } else {
+            System.out.println("Penerbit       : Tidak diketahui");
+        }
+        System.out.println("Tanggal Terbit : " + buku.getTanggalTerbit());
+        System.out.println("---------------------------------------");
+
+    }
+
     public void lihatBuku() {
         System.out.println("============== LIHAT BUKU =============");
         for (BukuEntity buku : Library.bukuList) {
@@ -200,16 +225,16 @@ public class BukuPage extends Library {
         System.out.println("=======================================");
     }
 
-    private void hapusBuku(BukuEntity buku) {
+    private void hapusBuku(int i) {
         System.out.println("=============== KONFIRMASI ============");
 
-        lihatBuku(buku);
+        lihatBuku(i);
 
         System.out.print("Ingin Menghapus Buku ini ? (y/n) ");
         char konf = input.nextLine().charAt(0);
 
         if (konf == 'y') {
-            Library.deleteBuku(buku);
+            Library.deleteBuku(i);
         }
 
     }
@@ -226,7 +251,7 @@ public class BukuPage extends Library {
         BukuEntity buku = Library.findBukuById(idKoleksi);
 
         if (buku != null) {
-            hapusBuku(buku);
+            hapusBuku(idKoleksi);
         } else {
             System.out.println("Data Buku Tidak Ditemukan !");
         }

@@ -2,6 +2,7 @@ package views.home;
 
 import controllers.*;
 import entity.*;
+import models.Library;
 import models.Staff;
 import views.*;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+// import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -20,8 +22,9 @@ public class DashboardFrame extends MainFrame {
     private JLabel titleLabel, subTitleLabel;
     private JButton lihatBtn, tambahBtn, editBtn, hapusBtn;
     private JButton refreshBtn;
+    private JButton bukuBtn, cariStaffBtn, logoutBtn;
 
-    private JTable bukuTable;
+    protected JTable bukuTable;
     private JScrollPane scrollPane;
 
     private JTextField selectedField = new JTextField();
@@ -51,6 +54,16 @@ public class DashboardFrame extends MainFrame {
         setFontSize(subTitleLabel, 20);
         setFontStyle(subTitleLabel, Font.BOLD);
         boundedAdd(subTitleLabel, 102, 68, 200, 27);
+
+        bukuBtn = new JButton("Buku");
+        bukuBtn.setBackground(color("#D9D9D9"));
+        bukuBtn.setForeground(color("#000000"));
+        boundedAdd(bukuBtn, 0, 138, 103, 31);
+
+        cariStaffBtn = new JButton("Cari Staff");
+        cariStaffBtn.setBackground(color("#115797"));
+        cariStaffBtn.setForeground(color("#FFFFFF"));
+        boundedAdd(cariStaffBtn, 0, 169, 103, 31);
 
         refreshBtn = new JButton("Refresh");
         refreshBtn.setForeground(color("#00FF88"));
@@ -90,7 +103,13 @@ public class DashboardFrame extends MainFrame {
 
         // Scroll Table
         scrollPane = new JScrollPane(bukuTable);
-        boundedAdd(scrollPane, 31, 145, 738, 430);
+        boundedAdd(scrollPane, 109, 138, 671, 434);
+
+        logoutBtn = new JButton("LOGOUT");
+        logoutBtn.setBackground(color("#E50404"));
+        logoutBtn.setForeground(color("#FFFFFF"));
+        logoutBtn.setFocusPainted(false);
+        boundedAdd(logoutBtn, 14, 552, 76, 18);
     }
 
     @Override
@@ -112,14 +131,43 @@ public class DashboardFrame extends MainFrame {
             new TambahBukuFrame().setVisible(true);
         }));
 
-        hapusBtn.addActionListener((event -> {
-            new HapusFrame().setVisible(true);
+        editBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int i = bukuTable.getSelectedRow() + 1;
+                BukuEntity buku = Library.findBukuById(i);
+                if (buku != null) {
+                    new EditFrame(buku).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data Masih Kosong", "Informasi",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+
+        });
+        // editBtn.addActionListener((event -> {
+        // new EditFrame().setVisible(true);
+        // }));
+
+        hapusBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int i = bukuTable.getSelectedRow();
+                _dashboardC.delete(i);
+                JOptionPane.showMessageDialog(null, "Hapus Buku berhasil", "Information",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        cariStaffBtn.addActionListener((event -> {
+            new CariStaffFrame().setVisible(true);
         }));
 
-        editBtn.addActionListener((event -> {
-            new EditFrame().setVisible(true);
+        logoutBtn.addActionListener((event -> {
+            new LogoutFrame().setVisible(true);
+            dispose();
         }));
-
     }
 
     private TableModel createTableModel() {
@@ -130,6 +178,9 @@ public class DashboardFrame extends MainFrame {
                 "Judul Buku",
                 "Jumlah hal",
                 "Genre",
+                "Tanggal Terbit",
+                "Penulis",
+                "Penerbit",
 
         };
         dataTable.setColumnIdentifiers(column);
@@ -137,12 +188,15 @@ public class DashboardFrame extends MainFrame {
         ArrayList<BukuEntity> bukuList = _dashboardC.bukuList();
 
         for (BukuEntity buku : bukuList) {
+
             Object[] data = new String[] {
                     String.valueOf(buku.getIdKoleksi()),
                     buku.getJudulBuku(),
                     String.valueOf(buku.getJmlHalaman()),
                     buku.getGenreBuku(),
-
+                    buku.getTanggalTerbit(),
+                    buku.getNamaPenulis(),
+                    buku.getNamaPenerbit()
             };
 
             dataTable.addRow(data);

@@ -70,8 +70,11 @@ public class Library {
         }
     }
 
-    public static void deleteBuku(BukuEntity buku) {
-        bukuList.remove(buku);
+    public static void deleteBuku(int index) {
+        bukuList.remove(index);
+    }
 
+    public static void getIndex(int index) {
+        bukuList.get(index);
     }
 }

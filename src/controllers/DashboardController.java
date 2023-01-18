@@ -19,4 +19,17 @@ public class DashboardController {
     public ArrayList<BukuEntity> bukuList() {
         return Library.getBukuList();
     }
+
+    public void updateBuku(BukuEntity buku) {
+        Library.updateBuku(buku);
+    }
+
+    public void getIndex(int index) {
+        Library.findBukuById(index);
+    }
+
+    public void delete(int index) {
+        Library.deleteBuku(index);
+    }
+
 }
