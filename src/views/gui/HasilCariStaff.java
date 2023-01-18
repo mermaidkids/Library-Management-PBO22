@@ -1,4 +1,4 @@
-package views;
+package views.gui;
 
 import java.awt.Font;
 import javax.swing.*;

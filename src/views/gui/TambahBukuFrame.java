@@ -1,7 +1,9 @@
-package views;
+package views.gui;
 
 import java.awt.Font;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import entity.*;
 import models.Library;
@@ -13,8 +15,8 @@ public class TambahBukuFrame extends MainFrame {
     private JLabel genreBukuLabel;
     private JLabel tanggalTerbitLabel;
     private JLabel penulisLabel;
-    private JLabel namaPenulisLabel, namaPenerbitLabel;
-    private JTextField namaPenulisField, namaPenerbitField;
+    private JLabel namaPenulisLabel, namaPenerbitLabel, emailPenulisLabel, alamatPenerbitLabel;
+    private JTextField namaPenulisField, namaPenerbitField, emailPenulisField, alamatPenerbitField;
     private JLabel penerbitLabel, yLabel1, yLabel2, tLabel1, tLabel2;
     private JTextField namaBukuField, halamanField, genreField, tanggalField;
     private JRadioButton yaButton1, yaButton2, tidakButton1, tidakButton2;
@@ -98,26 +100,34 @@ public class TambahBukuFrame extends MainFrame {
         namaPenulisField = new JTextField();
         boundedAdd(namaPenulisField, 114, 349, 248, 24);
 
+        emailPenulisLabel = new JLabel("Email Penulis :");
+        setFontSize(emailPenulisLabel, 10);
+        setFontStyle(emailPenulisLabel, Font.BOLD);
+        boundedAdd(emailPenulisLabel, 37, 384, 70, 12);
+
+        emailPenulisField = new JTextField();
+        boundedAdd(emailPenulisField, 114, 379, 248, 24);
+
         penerbitLabel = new JLabel("Penerbit");
         setFontSize(penerbitLabel, 15);
         setFontStyle(penerbitLabel, Font.BOLD);
-        boundedAdd(penerbitLabel, 33, 423, 63, 18);
+        boundedAdd(penerbitLabel, 34, 415, 63, 18);
 
         yaButton2 = new JRadioButton();
-        boundedAdd(yaButton2, 36, 451, 9, 9);
+        boundedAdd(yaButton2, 37, 443, 9, 9);
 
         yLabel2 = new JLabel("Ya");
         setFontSize(yLabel2, 10);
         setFontStyle(yLabel2, Font.BOLD);
-        boundedAdd(yLabel2, 52, 450, 12, 12);
+        boundedAdd(yLabel2, 51, 442, 12, 12);
 
         tidakButton2 = new JRadioButton();
-        boundedAdd(tidakButton2, 81, 451, 9, 9);
+        boundedAdd(tidakButton2, 82, 443, 9, 9);
 
         tLabel2 = new JLabel("Tidak");
         setFontSize(tLabel2, 10);
         setFontStyle(tLabel2, Font.BOLD);
-        boundedAdd(tLabel2, 96, 450, 28, 12);
+        boundedAdd(tLabel2, 96, 442, 28, 12);
 
         G2 = new ButtonGroup();
         G2.add(yaButton2);
@@ -130,6 +140,14 @@ public class TambahBukuFrame extends MainFrame {
 
         namaPenerbitField = new JTextField();
         boundedAdd(namaPenerbitField, 119, 461, 248, 24);
+
+        alamatPenerbitLabel = new JLabel("alamat Penerbit :");
+        setFontSize(alamatPenerbitLabel, 10);
+        setFontStyle(alamatPenerbitLabel, Font.BOLD);
+        boundedAdd(alamatPenerbitLabel, 30, 496, 85, 12);
+
+        alamatPenerbitField = new JTextField();
+        boundedAdd(alamatPenerbitField, 119, 490, 248, 24);
 
         tambahBtn = new JButton("Tambah");
         tambahBtn.setBackground(color("#5BFF40"));
@@ -151,51 +169,65 @@ public class TambahBukuFrame extends MainFrame {
 
         yaButton1.addActionListener((event -> {
             namaPenulisField.setEditable(true);
+            emailPenulisField.setEditable(true);
         }));
 
         tidakButton1.addActionListener((event -> {
             namaPenulisField.setEditable(false);
+            emailPenulisField.setEditable(false);
         }));
 
         yaButton2.addActionListener((event -> {
             namaPenerbitField.setEditable(true);
+            alamatPenerbitField.setEditable(true);
         }));
 
         tidakButton2.addActionListener((event -> {
             namaPenerbitField.setEditable(false);
+            alamatPenerbitField.setEditable(false);
         }));
 
-        tambahBtn.addActionListener((event -> {
-            String judulBuku = namaBukuField.getText();
-            int halamanBuku = Integer.parseInt(halamanField.getText());
-            String genreBuku = genreField.getText();
-            String tanggalTerbit = tanggalField.getText();
-            if (yaButton1.isSelected()) {
-                // namaPenulisField.setEditable(true);
-                penulis = new PenulisEntity(namaPenulisField.getText());
-            } else if (tidakButton1.isSelected()) {
-                String namaPenulis = " - ";
-                // namaPenulisField.setEditable(false);
-                penulis = new PenulisEntity(namaPenulis);
+        tambahBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String judulBuku = namaBukuField.getText();
+                    int halamanBuku = Integer.parseInt(halamanField.getText());
+                    String genreBuku = genreField.getText();
+                    String tanggalTerbit = tanggalField.getText();
+                    if (yaButton1.isSelected()) {
+                        // namaPenulisField.setEditable(true);
+                        penulis = new PenulisEntity(namaPenulisField.getText(), emailPenulisField.getText());
+
+                    } else if (tidakButton1.isSelected()) {
+                        String namaPenulis = " - ";
+                        // namaPenulisField.setEditable(false);
+                        penulis = new PenulisEntity(namaPenulis);
+                    }
+
+                    if (yaButton2.isSelected()) {
+                        // namaPenerbitField.setEditable(true);
+                        penerbit = new PenerbitEntity(namaPenerbitField.getText(), alamatPenerbitField.getText());
+                    } else if (tidakButton2.isSelected()) {
+                        String namaPenerbit = " - ";
+                        // namaPenulisField.setEditable(false);
+                        penerbit = new PenerbitEntity(namaPenerbit);
+                    }
+                    BukuEntity bukuBaru = new BukuEntity(judulBuku, halamanBuku, genreBuku, tanggalTerbit, penulis,
+                            penerbit,
+                            true);
+                    Library.tambahBuku(bukuBaru);
+
+                    JOptionPane.showMessageDialog(null,
+                            "Tambah Buku Berhasil");
+                    dispose();
+                } catch (Exception exc) {
+                    JOptionPane.showMessageDialog(null, "Maaf Buku Gagal Ditambahkan, Isi Kolom Dengan Benar",
+                            "Informasi",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
             }
-
-            if (yaButton2.isSelected()) {
-                // namaPenerbitField.setEditable(true);
-                penerbit = new PenerbitEntity(namaPenerbitField.getText());
-            } else if (tidakButton2.isSelected()) {
-                String namaPenerbit = " - ";
-                // namaPenulisField.setEditable(false);
-                penerbit = new PenerbitEntity(namaPenerbit);
-            }
-            BukuEntity bukuBaru = new BukuEntity(judulBuku, halamanBuku, genreBuku, tanggalTerbit, penulis, penerbit,
-                    true);
-            Library.tambahBuku(bukuBaru);
-
-            JOptionPane.showMessageDialog(null,
-                    "Tambah Buku Berhasil");
-
-            dispose();
-        }));
+        });
 
         batalBtn.addActionListener((event -> {
             dispose();

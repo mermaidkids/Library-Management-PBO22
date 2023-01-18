@@ -1,11 +1,11 @@
-package views;
+package views.gui;
 
 import java.awt.Font;
 import javax.swing.*;
 
 import entity.*;
 import models.Library;
-import views.home.*;
+import views.gui.home.*;
 
 public class EditFrame extends MainFrame {
     private JLabel titleLabel;
@@ -14,8 +14,8 @@ public class EditFrame extends MainFrame {
     private JLabel genreBukuLabel;
     private JLabel tanggalTerbitLabel;
     private JLabel penulisLabel;
-    private JLabel namaPenulisLabel, namaPenerbitLabel;
-    private JTextField namaPenulisField, namaPenerbitField;
+    private JLabel namaPenulisLabel, namaPenerbitLabel, emailPenulisLabel, alamatPenerbitLabel;
+    private JTextField namaPenulisField, namaPenerbitField, emailPenulisField, alamatPenerbitField;
     private JLabel penerbitLabel, yLabel1, yLabel2, tLabel1, tLabel2;
     private JTextField namaBukuField, halamanField, genreField, tanggalField;
     private JRadioButton yaButton1, yaButton2, tidakButton1, tidakButton2;
@@ -106,6 +106,14 @@ public class EditFrame extends MainFrame {
         namaPenulisField = new JTextField(_bukuC.getNamaPenulis());
         boundedAdd(namaPenulisField, 114, 349, 248, 24);
 
+        emailPenulisLabel = new JLabel("Email Penulis :");
+        setFontSize(emailPenulisLabel, 10);
+        setFontStyle(emailPenulisLabel, Font.BOLD);
+        boundedAdd(emailPenulisLabel, 37, 384, 70, 12);
+
+        emailPenulisField = new JTextField(_bukuC.getEmailPenulis());
+        boundedAdd(emailPenulisField, 114, 379, 248, 24);
+
         penerbitLabel = new JLabel("Penerbit");
         setFontSize(penerbitLabel, 15);
         setFontStyle(penerbitLabel, Font.BOLD);
@@ -139,6 +147,14 @@ public class EditFrame extends MainFrame {
         namaPenerbitField = new JTextField(_bukuC.getNamaPenerbit());
         boundedAdd(namaPenerbitField, 119, 461, 248, 24);
 
+        alamatPenerbitLabel = new JLabel("alamat Penerbit :");
+        setFontSize(alamatPenerbitLabel, 10);
+        setFontStyle(alamatPenerbitLabel, Font.BOLD);
+        boundedAdd(alamatPenerbitLabel, 30, 496, 85, 12);
+
+        alamatPenerbitField = new JTextField(_bukuC.getAlamatPenerbit());
+        boundedAdd(alamatPenerbitField, 119, 490, 248, 24);
+
         updateBtn = new JButton("update");
         updateBtn.setBackground(color("#5BFF40"));
         updateBtn.setForeground(color("#FFFFFF"));
@@ -156,18 +172,22 @@ public class EditFrame extends MainFrame {
 
         yaButton1.addActionListener((event -> {
             namaPenulisField.setEditable(true);
+            emailPenulisField.setEditable(true);
         }));
 
         tidakButton1.addActionListener((event -> {
             namaPenulisField.setEditable(false);
+            emailPenulisField.setEditable(false);
         }));
 
         yaButton2.addActionListener((event -> {
             namaPenerbitField.setEditable(true);
+            alamatPenerbitField.setEditable(true);
         }));
 
         tidakButton2.addActionListener((event -> {
             namaPenerbitField.setEditable(false);
+            alamatPenerbitField.setEditable(false);
         }));
 
         updateBtn.addActionListener((event -> {
@@ -180,23 +200,28 @@ public class EditFrame extends MainFrame {
             String tanggalTerbit = tanggalField.getText();
             _bukuC.setTanggalTerbit(tanggalTerbit);
             if (yaButton1.isSelected()) {
-                penulis = new PenulisEntity(namaPenulisField.getText());
+                penulis = new PenulisEntity(namaPenulisField.getText(), emailPenulisField.getText());
                 _bukuC.setPenulis(penulis);
             } else if (tidakButton1.isSelected()) {
                 String namaPenulis = " - ";
-                penulis = new PenulisEntity(namaPenulis);
+                String emailPenulis = " - ";
+                penulis = new PenulisEntity(namaPenulis, emailPenulis);
                 _bukuC.setPenulis(penulis);
             }
 
             if (yaButton2.isSelected()) {
-                penerbit = new PenerbitEntity(namaPenerbitField.getText());
+                penerbit = new PenerbitEntity(namaPenerbitField.getText(), alamatPenerbitField.getText());
                 _bukuC.setPenerbit(penerbit);
             } else if (tidakButton2.isSelected()) {
                 String namaPenerbit = " - ";
-                penerbit = new PenerbitEntity(namaPenerbit);
+                String alamatPenerbit = " - ";
+                penerbit = new PenerbitEntity(namaPenerbit, alamatPenerbit);
                 _bukuC.setPenerbit(penerbit);
             }
             Library.updateBuku(_bukuC);
+            JOptionPane.showMessageDialog(null, "Edit Buku berhasil", "Information",
+                    JOptionPane.INFORMATION_MESSAGE);
+            dispose();
 
         }));
 

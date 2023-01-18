@@ -1,4 +1,4 @@
-package views;
+package views.gui;
 
 import java.awt.Font;
 import javax.swing.*;
@@ -44,7 +44,10 @@ public class CariStaffFrame extends MainFrame {
             if (staff != null) {
                 new HasilCariStaff(nik).setVisible(true);
             } else {
-                System.out.println("Data Staff Tidak Ditemukan !");
+                JOptionPane.showMessageDialog(null,
+                        "Maaf,Buku yang anda cari tidak ada",
+                        "404 not found",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }));
 

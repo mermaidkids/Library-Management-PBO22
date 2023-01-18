@@ -1,12 +1,14 @@
-package views;
+package views.gui;
 
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-// import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import controllers.AuthController;
 
@@ -26,38 +28,38 @@ public class RegisterFrame extends MainFrame {
 
     @Override
     protected void component() {
-        ImageIcon imgLoad = loadImage("src/assets/elibrary.png", 176, 98);
+        ImageIcon imgLoad = loadImage("src/assets/elibrary.png", 86, 109);
         iconLabel = new JLabel(imgLoad);
-        boundedAdd(iconLabel, 107, 24, 176, 98);
+        boundedAdd(iconLabel, 152, 36, 86, 109);
 
         titleLabel = new JLabel("REGISTRASI");
         setFontSize(titleLabel, 32);
         setFontStyle(titleLabel, Font.BOLD);
-        boundedAdd(titleLabel, 105, 133, 191, 39);
+        boundedAdd(titleLabel, 105, 158, 191, 39);
 
         namaLabel = new JLabel("NAMA LENGKAP");
         setFontSize(namaLabel, 16);
         setFontStyle(namaLabel, Font.BOLD);
-        boundedAdd(namaLabel, 30, 192, 131, 19);
+        boundedAdd(namaLabel, 30, 217, 131, 19);
 
         namaField = new JTextField();
-        boundedAdd(namaField, 30, 227, 330, 35);
+        boundedAdd(namaField, 30, 252, 330, 35);
 
         nikLabel = new JLabel("NIK");
         setFontSize(nikLabel, 16);
         setFontStyle(nikLabel, Font.BOLD);
-        boundedAdd(nikLabel, 37, 278, 91, 19);
+        boundedAdd(nikLabel, 37, 303, 28, 19);
 
         nikField = new JTextField();
-        boundedAdd(nikField, 30, 313, 330, 35);
+        boundedAdd(nikField, 30, 338, 330, 35);
 
         passwordLabel = new JLabel("PASSWORD");
         setFontSize(passwordLabel, 16);
         setFontStyle(passwordLabel, Font.BOLD);
-        boundedAdd(passwordLabel, 37, 364, 93, 19);
+        boundedAdd(passwordLabel, 37, 389, 93, 19);
 
         passwordField = new JPasswordField();
-        boundedAdd(passwordField, 30, 399, 330, 35);
+        boundedAdd(passwordField, 30, 424, 330, 35);
 
         daftarBtn = new JButton("DAFTAR");
         daftarBtn.setBackground(color("#00D4FF")); // #00D4FF
@@ -65,7 +67,7 @@ public class RegisterFrame extends MainFrame {
         daftarBtn.setFocusPainted(false);
         boundedAdd(daftarBtn, 132, 489, 112, 34);
 
-        masukDisiniBtn = new JButton("MASUK DISINI");
+        masukDisiniBtn = new JButton("MASUK");
         masukDisiniBtn.setBackground(color("#9C9C9C"));
         masukDisiniBtn.setFocusPainted(false);
         masukDisiniBtn.setBorderPainted(false);
@@ -75,14 +77,24 @@ public class RegisterFrame extends MainFrame {
 
     @Override
     protected void event() {
-        daftarBtn.addActionListener((event) -> {
-            String nama, nik, password;
-            nama = namaField.getText();
-            nik = nikField.getText();
-            password = String.valueOf(passwordField.getPassword());
 
-            _authC.regisStaff(nama, nik, password);
+        daftarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String nama, nik, password;
+                    nama = namaField.getText();
+                    nik = nikField.getText();
+                    password = String.valueOf(passwordField.getPassword());
+                    _authC.regisStaff(nama, nik, password);
+                    JOptionPane.showMessageDialog(null, "Registrasi Berhasil", "Information",
+                            JOptionPane.INFORMATION_MESSAGE);
 
+                } catch (Exception exc) {
+                    JOptionPane.showMessageDialog(null, "Registrasi Gagal, lengkapi data dengan benar", "Informasi",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         });
 
         masukDisiniBtn.addActionListener((event) -> {

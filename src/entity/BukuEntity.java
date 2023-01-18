@@ -120,6 +120,14 @@ public class BukuEntity extends KoleksiEntity {
         return penulis.getNama();
     }
 
+    public String getEmailPenulis() {
+        return penulis.getEmailPenulis();
+    }
+
+    public String getAlamatPenerbit() {
+        return penerbit.getAlamatPenerbit();
+    }
+
     public String getNamaPenerbit() {
         return penerbit.getNama();
     }

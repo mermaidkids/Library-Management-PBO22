@@ -1,4 +1,4 @@
-package views;
+package views.gui;
 
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+//F0F0F0 2490EC D9D9D9
 public abstract class MainFrame extends JFrame {
     protected Color backgroundColor = Color.decode("#F0F0F0");
     protected Color primaryColor = Color.decode("#2490EC");
@@ -24,10 +25,11 @@ public abstract class MainFrame extends JFrame {
     public MainFrame(String title, int width, int height) {
         setTitle(title);
         setSize(width, height);
-        setBackground(backgroundColor);
+        // setBackground(backgroundColor);
         setLayout(null);
         setLocation(500, 250);
         setResizable(false);
+        getContentPane().setBackground(new Color(98, 52, 77));
 
     }
 

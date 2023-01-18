@@ -1,6 +1,6 @@
 import models.Library;
 import models.Staff;
-import views.LoginFrame;
+import views.gui.LoginFrame;
 
 public class App {
     public static void main(String[] args) {
