@@ -25,11 +25,11 @@ public abstract class MainFrame extends JFrame {
     public MainFrame(String title, int width, int height) {
         setTitle(title);
         setSize(width, height);
-        // setBackground(backgroundColor);
+        setBackground(backgroundColor);
         setLayout(null);
         setLocation(500, 250);
         setResizable(false);
-        getContentPane().setBackground(new Color(98, 52, 77));
+        // getContentPane().setBackground(new Color(98, 52, 77));
 
     }
 

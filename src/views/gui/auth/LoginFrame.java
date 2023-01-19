@@ -1,6 +1,5 @@
 package views.gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
